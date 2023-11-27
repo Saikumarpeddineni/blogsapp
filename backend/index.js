@@ -23,6 +23,8 @@ const cookieOptions = {
     secure: process.env.NODE_ENV === 'production',
     expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
     sameSite: "None",
+    domain: 'https://blogsapp-zeta.vercel.app',
+    path: '/',
 };
   
 app.use(cors(corsOptions));
