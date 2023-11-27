@@ -17,8 +17,13 @@ const corsOptions = {
     origin: 'https://blogsapp-zeta.vercel.app', 
     optionsSuccessStatus: 200,
   };
+
+const cookieOptions = {
+    expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+    SameSite: "None",
+};
   
-  app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads',express.static(__dirname+"/uploads"));
@@ -46,7 +51,7 @@ app.post('/login',async (req,res)=>{
     if(passOk){
         jwt.sign({username,id:userDoc._id},secret,{},(err,token)=>{
             if(err) res.status(400).json(err);
-            res.cookie('token',token).json({
+            res.cookie('token',token,cookieOptions).json({
                 id:userDoc._id,
                 username
             });
