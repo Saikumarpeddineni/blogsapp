@@ -6,7 +6,7 @@ export default function Post({_id,title,summary,content,cover,createdAt,author})
         <div className="post">
           <div className="blog-img">
             <Link to={`/post/${_id}`}>
-              <img src={"http://localhost:4000/"+cover} alt="post-img"/> 
+              <img src={"https://myblogs-vzdk.onrender.com/"+cover} alt="post-img"/> 
             </Link>
           </div>
           <div className="blog-details">
