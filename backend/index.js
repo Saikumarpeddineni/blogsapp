@@ -141,7 +141,10 @@ app.put("/post",uploadMiddleware.single('file'),async (req,res)=>{
 
     const {token} = req.cookies;
     jwt.verify(token,secret,{},async (err,info)=>{
-        if(err) throw err;
+        if (err) {
+            console.error(err);
+            return res.status(401).json({ error: 'Unauthorized' });
+        }
         const {id,title,summary,content}=req.body;
         const postDoc = await Post.findById(id);
         const isAuthor = JSON.stringify(postDoc.author)===JSON.stringify(info.id);
