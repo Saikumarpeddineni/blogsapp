@@ -14,7 +14,7 @@ const { userInfo } = require('os');
 
 const corsOptions = {
     credentials: true,
-    origin: 'https://blogsapp-zeta.vercel.app', // Update this line with your desired origin
+    origin: 'https://blogsapp-zeta.vercel.app', 
     optionsSuccessStatus: 200,
   };
   
@@ -62,6 +62,9 @@ app.post('/login',async (req,res)=>{
 app.get('/profile',(req,res)=>{
     const {token} = req.cookies;
     jwt.verify(token,secret,{},(err,info)=>{
+        if (!token) {
+            return res.status(401).json({ error: 'Unauthorized - Token missing' });
+        }
         if (err) {
             console.error(err);
             return res.status(401).json({ error: 'Unauthorized' });
@@ -83,6 +86,9 @@ app.post('/post',uploadMiddleware.single('file'),async (req,res)=>{
 
     const {token} = req.cookies;
     jwt.verify(token,secret,{},async (err,info)=>{
+        if (!token) {
+            return res.status(401).json({ error: 'Unauthorized - Token missing' });
+        }
         if (err) {
             console.error(err);
             return res.status(401).json({ error: 'Unauthorized' });
