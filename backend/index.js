@@ -12,7 +12,13 @@ const uploadMiddleware = multer({dest:'uploads/'});
 const fs = require('fs');
 const { userInfo } = require('os');
 
-app.use(cors({credentials:true,origin:'http://localhost:3004', optionsSuccessStatus: 200,}));
+const corsOptions = {
+    credentials: true,
+    origin: 'https://blogsapp-zeta.vercel.app', // Update this line with your desired origin
+    optionsSuccessStatus: 200,
+  };
+  
+  app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads',express.static(__dirname+"/uploads"));
