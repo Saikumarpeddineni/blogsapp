@@ -60,8 +60,10 @@ app.post('/login',async (req,res)=>{
                 username
             });
         });
+        localStorage.setItem("blog","yes");
     }else{
         res.status(400).json('wrong credentials');
+        localStorage.setItem("blog","no");
     }
     }catch(e){
         res.status(400).json('wrong crdentials');
@@ -71,7 +73,7 @@ app.post('/login',async (req,res)=>{
 app.get('/profile',(req,res)=>{
     const {token} = req.cookies;
     jwt.verify(token,secret,{},(err,info)=>{
-        if (!token) {
+        if (!token&&(localStorage.getItem("blog")!=="yes")) {
             return res.status(401).json({ error: 'Unauthorized - Token missing' });
         }
         if (err) {
@@ -95,7 +97,7 @@ app.post('/post',uploadMiddleware.single('file'),async (req,res)=>{
 
     const {token} = req.cookies;
     jwt.verify(token,secret,{},async (err,info)=>{
-        if (!token) {
+        if (!token&&(localStorage.getItem("blog")!=="yes")) {
             return res.status(401).json({ error: 'Unauthorized - Token missing' });
         }
         if (err) {
