@@ -12,7 +12,7 @@ export default function Header(){
           setUserInfo(userInfo);
       });
     });
-  },[userInfo]);
+  },[]);
 
     function logout(){
       fetch('https://myblogs-vzdk.onrender.com/logout',{
