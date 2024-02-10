@@ -59,7 +59,6 @@ app.post('/login',async (req,res)=>{
                 id:userDoc._id,
                 username
             });
-            res.json('cookie set: ',token);
         });
     }else{
         res.status(400).json('wrong credentials');
