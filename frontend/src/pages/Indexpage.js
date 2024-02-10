@@ -4,8 +4,8 @@ import Post from "../Post"
 export default function Indexpage(){
     const [posts,setPosts]= useState([]);
     useEffect(()=>{
-        fetch('https://myblogs-vzdk.onrender.com/post').then(response=>{
-            response.json().then(posts=>{
+        fetch('https://myblogs-vzdk.onrender.com/post').then(res=>{
+            res.json().then(posts=>{
                 setPosts(posts);
             })
         })
