@@ -22,20 +22,12 @@ export default function LoginPage(){
       const { token, id, username } = data;
       localStorage.setItem('token', token);
       setUserInfo({ id, username });
+      setRedirect(true);
     })
     .catch(error => {
       console.error('Login failed:', error);
       alert('wrong credentials');
-      // Handle login failure as needed
     });
-        // if(response.ok){
-        //     response.json().then(userInfo=>{
-        //         setUserInfo(userInfo);
-        //         setRedirect(true);
-        //     })
-        // }else{
-        //     alert('wrong credentials');
-        // }
     }
 
     if(redirect){
