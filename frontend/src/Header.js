@@ -13,7 +13,7 @@ export default function Header() {
         method: 'GET',
         credentials: 'include',
         headers: {
-          Authorization: `Bearer ${token}`,
+          authorization: `Bearer ${token}`,
         },
       })
         .then((response) => {

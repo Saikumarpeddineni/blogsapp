@@ -27,7 +27,7 @@ export default function CreatePost() {
         body: data,
         credentials: 'include',
         headers: {
-          Authorization: `Bearer ${token}`,
+          authorization: `Bearer ${token}`,
         },
       });
 
