@@ -86,7 +86,6 @@ app.get('/profile',(req,res)=>{
 });
 
 app.post('/logout',(req,res)=>{
-    localStorage.removeItem('token');
     res.json({ message: 'Logout successful' });
 });
 

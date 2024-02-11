@@ -32,13 +32,13 @@ export default function Header() {
   }, [setUserInfo]);
 
   function logout() {
-    fetch('https://myblogs-vzdk.onrender.com/logout', {
-      credentials: 'include',
-      method: 'POST',
-    }).then(() => {
+    // fetch('https://myblogs-vzdk.onrender.com/logout', {
+    //   credentials: 'include',
+    //   method: 'POST',
+    // }).then(() => {
       localStorage.removeItem('token');
       setUserInfo(null);
-    });
+    // });
   }
 
   const username = userInfo?.username;
