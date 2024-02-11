@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 export default function PostPage(){
     const [postInfo,setPostInfo] = useState(null);
     const {userInfo} = useContext(UserContext);
+    const [redirect, setRedirect] = useState(false);
     const {id} = useParams();
     useEffect(()=>{
         fetch(`https://myblogs-vzdk.onrender.com/post/${id}`)
@@ -24,6 +25,7 @@ export default function PostPage(){
           .then(response => {
             if (response.ok) {
               alert('Blog Deleted');
+              setRedirect(true);
             } else {
               // Handle non-successful response (e.g., show an error message)
               console.error('Failed to delete blog:', response.statusText);
@@ -39,6 +41,9 @@ export default function PostPage(){
           });
       }
       
+      if (redirect) {
+        return <Navigate to={'/'} />;
+      }
 
     if(!postInfo) return '';
 
@@ -56,23 +61,7 @@ export default function PostPage(){
  Edit this Post
                     </Link>
                     <button className="edit-btn" onClick={() => deletePost(postInfo._id)}>
-                    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="feather feather-trash-2"
-      >
-        <polyline points="3 6 5 6 21 6" />
-        <path d="M16 10a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1" />
-        <path d="M8 10a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1" />
-        <path d="M21 6L21 10" />
-        <path d="M3 6L3 10" />
-      </svg>
-        Delete this Post
+                    Delete this Post
                     </button>
                 </div>
             )}
