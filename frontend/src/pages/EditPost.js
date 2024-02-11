@@ -37,7 +37,9 @@ export default function EditPost(){
             method:'PUT',
             body:data,
             credentials:'include',
-            authorization:`Bearer ${token}`
+            headers: {
+                authorization: `Bearer ${token}`,
+              }
         });
         if(response.ok){
             setRedirect(true);
