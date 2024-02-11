@@ -17,12 +17,28 @@ export default function PostPage(){
             })
     },[]);
 
-    function deletePost(){
-        fetch("https://myblogs-vzdk.onrender.com/delete/"+id)
-        .then(response=>{
-            if(response.ok) alert('Blog Deleted');
+    function deletePost(id) {
+        fetch(`https://myblogs-vzdk.onrender.com/delete/${id}`, {
+          method: 'DELETE',
         })
-    }
+          .then(response => {
+            if (response.ok) {
+              alert('Blog Deleted');
+            } else {
+              // Handle non-successful response (e.g., show an error message)
+              console.error('Failed to delete blog:', response.statusText);
+              // Optionally, you can throw an error or handle it in a different way
+              throw new Error(`Failed to delete blog: ${response.statusText}`);
+            }
+          })
+          .catch(error => {
+            // Handle network errors or other errors during the fetch operation
+            console.error('Error deleting blog:', error.message);
+            // Optionally, you can show an error message to the user
+            alert('Failed to delete blog. Please try again.');
+          });
+      }
+      
 
     if(!postInfo) return '';
 
@@ -39,7 +55,7 @@ export default function PostPage(){
 </svg>
  Edit this Post
                     </Link>
-                    <button className="edit-btn" onClick={deletePost}>
+                    <button className="edit-btn" onClick={() => deletePost(postInfo._id)}>
                     <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
