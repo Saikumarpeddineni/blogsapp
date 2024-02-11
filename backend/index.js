@@ -178,6 +178,26 @@ app.put("/post",uploadMiddleware.single('file'),async (req,res)=>{
         await postDoc.updateOne({title,summary,content,cover:newPath?newPath:postDoc.cover});
         res.json(postDoc);
     })
+});
+
+app.delete("/delete/:id",async (req,res)=>{
+    const { id } = req.params;
+
+    try {
+        // Use Mongoose to find and remove the post by id
+        const deletedPost = await Post.findByIdAndRemove(id);
+
+        if (deletedPost) {
+            res.json({ success: true, deletedPost });
+        } else {
+            // If post with the given id is not found
+            res.status(404).json({ success: false, message: 'Post not found' });
+        }
+    } catch (error) {
+        // Handle any errors that may occur during the operation
+        console.error('Error deleting post:', error.message);
+        res.status(500).json({ success: false, message: 'Internal Server Error' });
+    }  
 })
 
 
