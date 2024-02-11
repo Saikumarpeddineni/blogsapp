@@ -3,10 +3,15 @@ import { useContext, useEffect} from "react";
 import { UserContext } from "./UserContext";
 
 export default function Header(){
-  const {setUserInfo,userInfo} = useContext(UserContext)
+  const {setUserInfo,userInfo} = useContext(UserContext);
+  const token = localStorage.getItem('token');
   useEffect(()=>{
     fetch('https://myblogs-vzdk.onrender.com/profile',{
+      method:'GET',
       credentials:'include',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
     }).then(response=>{
       response.json().then(userInfo=>{
           setUserInfo(userInfo);
