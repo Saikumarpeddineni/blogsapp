@@ -63,9 +63,11 @@ export default function PostPage(){
  Edit Blog
                     </Link>
                 </div>
+                <div>
                 <button className="delete-btn" onClick={() => deletePost(postInfo._id)}>
                 Delete Blog
                 </button>
+                </div>
                 </div>
             )}
             <div className="image">
