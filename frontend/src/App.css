@@ -161,6 +161,7 @@ div.edit-row {
   display: flex;
   gap: 20px;
   align-items: center;
+  justify-content: center;
 }
 
 div.post-page a.edit-btn{
@@ -181,8 +182,6 @@ div.post-page a.edit-btn{
   padding: 15px 30px;
   text-decoration: none;
   border-radius: 5px;
-  align-items: center;
-  gap: 5px;
 }
 
 a svg{
