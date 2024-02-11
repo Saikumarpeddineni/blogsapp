@@ -14,13 +14,13 @@ const { userInfo } = require('os');
 
 const corsOptions = {
     credentials: true,
-    origin: 'https://blogsapp-zeta.vercel.app', 
+    origin: ['https://blogsapp-zeta.vercel.app', 'http://blogsapp-zeta.vercel.app'],
     optionsSuccessStatus: 200,
   };
 
 const cookieOptions = {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: process.env.NODE_ENV === 'production' ? true : false, // Set to false during development
     expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
     sameSite: "None",
     domain: 'blogsapp-zeta.vercel.app',
@@ -33,7 +33,7 @@ app.use(cookieParser());
 app.use('/uploads',express.static(__dirname+"/uploads"));
 
 const salt = bcrypt.genSaltSync(10);
-const secret = "ajhhkhfwekghwhfuhfukhkkuhfk";
+const secret = "myblogsecret123";
 
 mongoose.connect('mongodb+srv://saikumarpeddineni18:TqhZPVGpuOiJMxXQ@cluster0.9gd5l2k.mongodb.net/?retryWrites=true&w=majority')
 
