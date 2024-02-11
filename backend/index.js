@@ -18,15 +18,7 @@ const corsOptions = {
     optionsSuccessStatus: 200,
   };
 
-const cookieOptions = {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production' ? true : false, // Set to false during development
-    expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-    sameSite: "None",
-    domain: 'blogsapp-zeta.vercel.app',
-    path: '/',
-};
-  
+
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
@@ -73,7 +65,6 @@ app.post('/login',async (req,res)=>{
 });
 
 app.get('/profile',(req,res)=>{
-    // const {token} = req.cookies;
     const token = req.headers.authorization;
     if (!token || !token.startsWith('Bearer ')) {
         return res.status(401).json({ error: 'Unauthorized - Invalid token format' });
@@ -95,7 +86,6 @@ app.get('/profile',(req,res)=>{
 });
 
 app.post('/logout',(req,res)=>{
-    // res.clearCookie('token', cookieOptions).json({ message: 'Logout successful' });
     localStorage.removeItem('token');
     res.json({ message: 'Logout successful' });
 });
@@ -118,25 +108,6 @@ app.post('/post',uploadMiddleware.single('file'),async (req,res)=>{
     if (!actualToken) {
                 return res.status(401).json({ error: 'Unauthorized - Token missing' });
             }
-
-    // jwt.verify(token,secret,{},async (err,info)=>{
-    //     if (!token) {
-    //         return res.status(401).json({ error: 'Unauthorized - Token missing' });
-    //     }
-    //     if (err) {
-    //         console.error(err);
-    //         return res.status(401).json({ error: 'Unauthorized' });
-    //     }
-    //     const {title,summary,content}=req.body;
-    //     const postDoc = await Post.create({
-    //     title,summary,content,
-    //     cover:newPath,
-    //     author:info.id
-    // });
-
-    // res.json(postDoc);
-    // console.log(res,".jgjukvh");
-    // });
 
     jwt.verify(actualToken, secret, {}, async (err, info) => {
         if (err) {
@@ -183,8 +154,18 @@ app.put("/post",uploadMiddleware.single('file'),async (req,res)=>{
         fs.renameSync(path,newPath);
     }
 
-    const {token} = req.cookies;
-    jwt.verify(token,secret,{},async (err,info)=>{
+    const token = req.headers.authorization; // Assuming the token is sent in the Authorization header
+    if (!token || !token.startsWith('Bearer ')) {
+        return res.status(401).json({ error: 'Unauthorized - Invalid token format' });
+      }
+      
+    const actualToken = token.split(' ')[1];
+    const secret = "myblogsecret123"; // Make sure to use the same secret as used during token creation
+
+    if (!actualToken) {
+                return res.status(401).json({ error: 'Unauthorized - Token missing' });
+            }
+    jwt.verify(actualToken,secret,{},async (err,info)=>{
         if (err) {
             console.error(err);
             return res.status(401).json({ error: 'Unauthorized' });

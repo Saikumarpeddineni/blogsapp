@@ -12,7 +12,15 @@ export default function EditPost(){
     const [redirect,setRedirect] = useState(false);
 
     useEffect(()=>{
-        fetch("https://myblogs-vzdk.onrender.com/post/"+id)
+        const token=localStorage.getItem('token');
+        if(token){
+            fetch("https://myblogs-vzdk.onrender.com/post/"+id,{
+                method: 'PUT',
+                credentials: 'include',
+                headers: {
+                    authorization: `Bearer ${token}`,
+                }
+            })
             .then(response=>{
                 response.json().then(postInfo=>{
                     setTitle(postInfo.title);
@@ -20,6 +28,8 @@ export default function EditPost(){
                     setSummary(postInfo.summary);
                 })
             })
+        }
+        
     },[]);
 
     async function updatePost(ev){
