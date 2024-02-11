@@ -16,14 +16,26 @@ export default function LoginPage(){
             headers:{'Content-Type':'application/json'},
             credentials:'include'
         })
-        if(response.ok){
-            response.json().then(userInfo=>{
-                setUserInfo(userInfo);
-                setRedirect(true);
-            })
-        }else{
-            alert('wrong credentials');
-        }
+        .then(response => response.json())
+    .then(data => {
+      // Assuming the server sends a token in the response
+      const { token, id, username } = data;
+      localStorage.setItem('token', token);
+      setUserInfo({ id, username });
+    })
+    .catch(error => {
+      console.error('Login failed:', error);
+      alert('wrong credentials');
+      // Handle login failure as needed
+    });
+        // if(response.ok){
+        //     response.json().then(userInfo=>{
+        //         setUserInfo(userInfo);
+        //         setRedirect(true);
+        //     })
+        // }else{
+        //     alert('wrong credentials');
+        // }
     }
 
     if(redirect){

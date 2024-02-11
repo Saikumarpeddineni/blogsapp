@@ -57,9 +57,10 @@ app.post('/login',async (req,res)=>{
             if(err) res.status(400).json(err);
             else{
                 console.log("Setting cookie:", token);
-                res.cookie('token',token,cookieOptions).json({
+                res.json({
                     id:userDoc._id,
-                    username
+                    username,
+                    token
                 });
             }
         });
@@ -72,7 +73,8 @@ app.post('/login',async (req,res)=>{
 });
 
 app.get('/profile',(req,res)=>{
-    const {token} = req.cookies;
+    // const {token} = req.cookies;
+    const token = localStorage.getItem('token');
     jwt.verify(token,secret,{},(err,info)=>{
         if (!token) {
             return res.status(401).json({ error: 'Unauthorized - Token missing' });
@@ -86,7 +88,9 @@ app.get('/profile',(req,res)=>{
 });
 
 app.post('/logout',(req,res)=>{
-    res.clearCookie('token', cookieOptions).json({ message: 'Logout successful' });
+    // res.clearCookie('token', cookieOptions).json({ message: 'Logout successful' });
+    localStorage.removeItem('token');
+    res.json({ message: 'Logout successful' });
 });
 
 app.post('/post',uploadMiddleware.single('file'),async (req,res)=>{

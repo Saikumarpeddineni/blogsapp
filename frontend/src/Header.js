@@ -12,14 +12,17 @@ export default function Header(){
           setUserInfo(userInfo);
       });
     });
-  },[]);
+  },[setUserInfo]);
 
     function logout(){
       fetch('https://myblogs-vzdk.onrender.com/logout',{
         credentials:'include',
         method:'POST',
-      })
-      setUserInfo(null);
+      }).then(() => {
+        localStorage.removeItem('token');
+        setUserInfo(null);
+      });
+      // setUserInfo(null);
     }
 
     const username = userInfo?.username;
