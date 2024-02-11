@@ -13,16 +13,23 @@ export default function CreatePost(){
     const [redirect,setRedirect] = useState(false);
 
     async function createNewPost(ev){
+      ev.preventDefault();
+
       const data = new FormData();
       data.append('title',title);
       data.append('summary',summary);
       data.append('content',content);
       data.append('file',files[0]);
-      ev.preventDefault();
+      
+      const token = localStorage.getItem('token');
       const response = await fetch('https://myblogs-vzdk.onrender.com/post',{
         method:"POST",
         body:data,
-        credentials:'include'
+        credentials:'include',
+        headers: {
+          // Include the token in the Authorization header
+          Authorization: `Bearer ${token}`
+        }
       })
       console.log(response);
       if(response.ok){

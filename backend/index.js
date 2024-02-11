@@ -100,7 +100,9 @@ app.post('/post',uploadMiddleware.single('file'),async (req,res)=>{
     const newPath = path+'.'+ext;
     fs.renameSync(path,newPath);
 
-    const {token} = localStorage.getItem('token');
+    const token = req.headers.authorization; // Assuming the token is sent in the Authorization header
+    const secret = "myblogsecret123"; // Make sure to use the same secret as used during token creation
+
     jwt.verify(token,secret,{},async (err,info)=>{
         if (!token) {
             return res.status(401).json({ error: 'Unauthorized - Token missing' });
