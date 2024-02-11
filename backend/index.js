@@ -75,11 +75,16 @@ app.post('/login',async (req,res)=>{
 app.get('/profile',(req,res)=>{
     // const {token} = req.cookies;
     const token = req.headers.authorization;
-    if (!token) {
+    if (!token || !token.startsWith('Bearer ')) {
+        return res.status(401).json({ error: 'Unauthorized - Invalid token format' });
+      }
+      
+    const actualToken = token.split(' ')[1];
+    if (!actualToken) {
         return res.status(401).json({ error: 'Unauthorized - Token missing' });
       }
       const secret = "myblogsecret123";
-      jwt.verify(token, secret, {}, (err, info) => {
+      jwt.verify(actualToken, secret, {}, (err, info) => {
         if (err) {
           console.error(err);
           return res.status(401).json({ error: 'Unauthorized' });
@@ -103,9 +108,14 @@ app.post('/post',uploadMiddleware.single('file'),async (req,res)=>{
     fs.renameSync(path,newPath);
 
     const token = req.headers.authorization; // Assuming the token is sent in the Authorization header
+    if (!token || !token.startsWith('Bearer ')) {
+        return res.status(401).json({ error: 'Unauthorized - Invalid token format' });
+      }
+      
+    const actualToken = token.split(' ')[1];
     const secret = "myblogsecret123"; // Make sure to use the same secret as used during token creation
 
-    if (!token) {
+    if (!actualToken) {
                 return res.status(401).json({ error: 'Unauthorized - Token missing' });
             }
 
@@ -128,7 +138,7 @@ app.post('/post',uploadMiddleware.single('file'),async (req,res)=>{
     // console.log(res,".jgjukvh");
     // });
 
-    jwt.verify(token, secret, {}, async (err, info) => {
+    jwt.verify(actualToken, secret, {}, async (err, info) => {
         if (err) {
           console.error(err);
           return res.status(401).json({ error: 'Unauthorized' });
