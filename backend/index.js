@@ -103,24 +103,37 @@ app.post('/post',uploadMiddleware.single('file'),async (req,res)=>{
     const token = req.headers.authorization; // Assuming the token is sent in the Authorization header
     const secret = "myblogsecret123"; // Make sure to use the same secret as used during token creation
 
-    jwt.verify(token,secret,{},async (err,info)=>{
-        if (!token) {
-            return res.status(401).json({ error: 'Unauthorized - Token missing' });
-        }
-        if (err) {
-            console.error(err);
-            return res.status(401).json({ error: 'Unauthorized' });
-        }
-        const {title,summary,content}=req.body;
+    if (!token) {
+                return res.status(401).json({ error: 'Unauthorized - Token missing' });
+            }
+
+    // jwt.verify(token,secret,{},async (err,info)=>{
+    //     if (!token) {
+    //         return res.status(401).json({ error: 'Unauthorized - Token missing' });
+    //     }
+    //     if (err) {
+    //         console.error(err);
+    //         return res.status(401).json({ error: 'Unauthorized' });
+    //     }
+    //     const {title,summary,content}=req.body;
+    //     const postDoc = await Post.create({
+    //     title,summary,content,
+    //     cover:newPath,
+    //     author:info.id
+    // });
+
+    // res.json(postDoc);
+    // console.log(res,".jgjukvh");
+    // });
+
+    const {title,summary,content}=req.body;
         const postDoc = await Post.create({
         title,summary,content,
         cover:newPath,
         author:info.id
     });
-
     res.json(postDoc);
-    console.log(res,".jgjukvh");
-    });
+    
 });
 
 app.get('/post',async (req,res)=>{
