@@ -17,6 +17,13 @@ export default function PostPage(){
             })
     },[]);
 
+    function deletePost(){
+        fetch("https://myblogs-vzdk.onrender.com/delete/"+id)
+        .then(response=>{
+            if(response.ok) alert('Blog Deleted');
+        })
+    }
+
     if(!postInfo) return '';
 
     return(
@@ -32,7 +39,7 @@ export default function PostPage(){
 </svg>
  Edit this Post
                     </Link>
-                    <Link className="edit-btn" to={`/delete/${postInfo._id}`}>
+                    <button className="edit-btn" onClick={deletePost}>
                     <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -50,7 +57,7 @@ export default function PostPage(){
         <path d="M3 6L3 10" />
       </svg>
         Delete this Post
-                    </Link>
+                    </button>
                 </div>
             )}
             <div className="image">
