@@ -126,13 +126,23 @@ app.post('/post',uploadMiddleware.single('file'),async (req,res)=>{
     // console.log(res,".jgjukvh");
     // });
 
-    const {title,summary,content}=req.body;
+    jwt.verify(token, secret, {}, async (err, info) => {
+        if (err) {
+          console.error(err);
+          return res.status(401).json({ error: 'Unauthorized' });
+        }
+    
+        const { title, summary, content } = req.body;
         const postDoc = await Post.create({
-        title,summary,content,
-        cover:newPath,
-        author:info.id
-    });
-    res.json(postDoc);
+          title,
+          summary,
+          content,
+          cover: newPath,
+          author: info.id
+        });
+    
+        res.json(postDoc);
+      });
     
 });
 
