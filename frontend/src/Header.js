@@ -46,7 +46,10 @@ export default function Header() {
   return (
     <header>
       <Link to="/" className="logo">
-        MyBlogs
+        <div style={{display:'flex',alignItems:'center'}}>
+          <img  src='https://img.icons8.com/ios-filled/50/blogger.png'/>
+          MyBlogs
+        </div>
       </Link>
       <nav>
         {username && (
