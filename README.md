@@ -11,83 +11,82 @@ posts, providing a platform for content management and interaction.
 
 The repository is organized into two main directories:
 
--   **`backend/`**: Contains the server-side code and database
-    configurations.
--   **`frontend/`**: Houses the client-side application built to
-    interact with the backend.
+- **`backend/`**: Contains the server-side code and database
+  configurations.
+- **`frontend/`**: Houses the client-side application built to
+  interact with the backend.
 
 ## Features
 
--   **User Authentication**: Secure login and registration system.
--   **CRUD Operations**: Create, read, update, and delete blog posts.
--   **Responsive Design**: User-friendly interface accessible on various
-    devices.
--   **Comment System**: Users can comment on blog posts.
--   **Search Functionality**: Search for blog posts by title or content.
+- **User Authentication**: Secure login and registration system.
+- **CRUD Operations**: Create, read, update, and delete blog posts.
+- **Responsive Design**: User-friendly interface accessible on various
+  devices.
+- **User Authorization**: Only the authors can edit or delete their own blogs.
 
 ## Technologies Used
 
--   **Frontend**:
-    -   HTML, CSS, JavaScript
-    -   React (if applicable)
--   **Backend**:
-    -   Node.js
-    -   Express.js
-    -   MongoDB (or another database)
+- **Frontend**:
+    - HTML, CSS, JavaScript
+    - React (if applicable)
+- **Backend**:
+    - Node.js
+    - Express.js
+    - MongoDB (or another database)
 
 ## Setup Instructions
 
 ### Prerequisites
 
--   Node.js and npm installed on your machine.
--   MongoDB or another database set up and running.
+- Node.js and npm installed on your machine.
+- MongoDB or another database set up and running.
 
 ### Installation
 
-1.  **Clone the repository**:
+1. **Clone the repository**:
 
-    ``` bash
+    ```bash
     git clone https://github.com/Saikumarpeddineni/blogsapp.git
     cd blogsapp
     ```
 
-2.  **Backend Setup**:
+2. **Backend Setup**:
 
-    -   Navigate to the `backend/` directory.
+    - Navigate to the `backend/` directory.
 
-    -   Install dependencies:
+    - Install dependencies:
 
-        ``` bash
+        ```bash
         npm install
         ```
 
-    -   Configure your database connection in the appropriate
-        configuration file.
+    - Configure your database connection in the appropriate
+      configuration file.
 
-    -   Start the backend server:
+    - Start the backend server:
 
-        ``` bash
+        ```bash
         npm start
         ```
 
-3.  **Frontend Setup**:
+3. **Frontend Setup**:
 
-    -   Navigate to the `frontend/` directory.
+    - Navigate to the `frontend/` directory.
 
-    -   Install dependencies:
+    - Install dependencies:
 
-        ``` bash
+        ```bash
         npm install
         ```
 
-    -   Start the frontend development server:
+    - Start the frontend development server:
 
-        ``` bash
+        ```bash
         npm start
         ```
 
-4.  Open your browser and navigate to `http://localhost:3000` to view
-    the application.
+4. Open your browser and navigate to `http://localhost:3000` to view
+   the application.
 
 ## Contributing
 
