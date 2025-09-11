@@ -27,7 +27,8 @@ app.use('/uploads',express.static(__dirname+"/uploads"));
 const salt = bcrypt.genSaltSync(10);
 const secret = "myblogsecret123";
 
-mongoose.connect('mongodb+srv://saikumarpeddineni18:TqhZPVGpuOiJMxXQ@cluster0.9gd5l2k.mongodb.net/?retryWrites=true&w=majority')
+//mongoose.connect('mongodb+srv://saikumarpeddineni18:TqhZPVGpuOiJMxXQ@cluster0.9gd5l2k.mongodb.net/?retryWrites=true&w=majority')
+mongoose.connect('mongodb+srv://saikumarpeddineni18_db_user:5P0JdmkTiyTelosF@blogs-cluster0.kg9anyb.mongodb.net/?retryWrites=true&w=majority&appName=blogs-cluster0')
 
 app.post('/register',async (req,res)=>{
     const {username,password}=req.body;
